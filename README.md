@@ -13,24 +13,24 @@
 ---
 
 ## Table of Contents
-- [Project Overview](#-project-overview)
-- [Key Features](#-key-features)
-- [System Architecture](#-system-architecture)
-- [Prerequisites](#-prerequisites)
-- [Installation & Environment Setup](#-installation--environment-setup)
+- [Project Overview](#project-overview)
+- [Key Features](#key-features)
+- [System Architecture](#system-architecture)
+- [Prerequisites](#prerequisites)
+- [Installation & Environment Setup](#installation--environment-setup)
   - [1. Clone Repository](#1-clone-repository)
   - [2. Backend Setup (Python Virtual Environment)](#2-backend-setup-python-virtual-environment)
   - [3. Frontend Setup (React & Vite)](#3-frontend-setup-react--vite)
-- [Running the Application](#-running-the-application)
+- [Running the Application](#running-the-application)
   - [Method 1: 1-Click Launcher (Windows Recommended)](#method-1-1-click-launcher-windows-recommended)
   - [Method 2: Developer Mode (Live Hot-Reload)](#method-2-developer-mode-live-hot-reload)
   - [Method 3: Production Unified Mode](#method-3-production-unified-mode)
-- [REST API Endpoints](#-rest-api-endpoints)
-- [Supported Language Constructs](#-supported-language-constructs)
-- [Project Structure](#-project-structure)
-- [Troubleshooting & FAQ](#-troubleshooting--faq)
-- [Documentation Index](#-documentation-index)
-- [Authors & License](#-authors--license)
+- [REST API Endpoints](#rest-api-endpoints)
+- [Supported Language Constructs](#supported-language-constructs)
+- [Project Structure](#project-structure)
+- [Troubleshooting & FAQ](#troubleshooting--faq)
+- [Documentation Index](#documentation-index)
+- [Authors & License](#authors--license)
 
 ---
 
@@ -45,7 +45,7 @@ BNFgen provides an interactive, visual environment for students and instructors 
 4. **Dual Tree Synthesis**:
    - **Concrete Parse Tree (CST)**: Complete grammatical hierarchy showing every non-terminal and leaf token.
    - **Abstract Syntax Tree (AST)**: Semantic tree that eliminates delimiters (semicolons, parentheses) and hoists operators into parent nodes for code generation.
-5. **Optimization Metrics**: Node counts, derivation depth, and tree redundancy reduction percentages.
+5. **Compiler Tree Metrics**: Concrete parse tree node counts, derivation depth, and clean AST operator/operand node counts.
 
 ---
 
@@ -55,6 +55,7 @@ BNFgen provides an interactive, visual environment for students and instructors 
 - **Modern Modular React 19 Frontend**: Component-based UI with interactive collapsible trees, single-row preset chips with navigation arrows (`◀` / `▶`), and sticky topbar navigation.
 - **Real-Time Syntax Validation**: Instant feedback informing you whether a statement conforms to grammar rules before synthesizing trees.
 - **Collapsible Hierarchical Tree Visualizer**: Visual representation with custom terminal/non-terminal badges (`𖣂`), branch connectors, and one-click ASCII export.
+- **Custom Neo-Brutalist Aesthetic**: High-contrast borders, pastel accent palettes, and responsive dual-panel layout.
 - **Unified Single-Port Hosting**: FastAPI can serve the built React bundle and API endpoints simultaneously from `http://localhost:8000`.
 
 ---
@@ -109,7 +110,7 @@ Before running the project, make sure the following runtimes are installed on yo
 
 > [!IMPORTANT]
 > **Windows Users**: When installing Python from python.org, **MUST** check the box:
-> ☑ **"Add python.exe to PATH"** on the very first installer screen.
+> **"Add python.exe to PATH"** on the very first installer screen.
 
 ---
 
@@ -120,8 +121,8 @@ Before running the project, make sure the following runtimes are installed on yo
 Open your terminal (PowerShell, Command Prompt, or Bash) and clone the repository:
 
 ```bash
-[https://github.com/anjeleee/bnf-ast-converter.git]
-cd bnf-ast-converter.git
+git clone https://github.com/YOUR_USERNAME/ccpglang-bnfgen.git
+cd ccpglang-bnfgen
 ```
 
 ---
@@ -216,7 +217,7 @@ cd ..
 
 ### Method 1: 1-Click Launcher (Windows Recommended)
 
-Simply double-click [`run_app.bat`] in the project root folder.
+Simply double-click [`run_app.bat`](file:///c:/Users/Anjelee%20Tejada/Documents/CCPGLANG/run_app.bat) in the project root folder.
 
 The launcher script will automatically:
 1. Detect and display your Python version.
@@ -306,9 +307,11 @@ The backend provides a RESTful JSON API. Interactive OpenAPI Swagger documentati
     "bnf_derivation": "<program> => <statement_list> => ...",
     "bnf_relevant": "...",
     "metrics": {
-      "cstNodes": 12,
-      "astNodes": 7,
-      "reduction": 41.7
+      "cstNodes": 14,
+      "cstDepth": 6,
+      "cstTerminals": 7,
+      "astNodes": 6,
+      "astDepth": 3
     }
   }
   ```
