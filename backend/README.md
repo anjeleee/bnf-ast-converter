@@ -17,10 +17,7 @@ This directory houses the 100% pure Python compiler engine for **BNFgen**. All t
 - [Architecture & Engine Pipeline](#architecture--engine-pipeline)
 - [API Endpoints](#api-endpoints)
 - [Course Syllabus AST Specification](#course-syllabus-ast-specification)
-<<<<<<< HEAD
 - [Strict Syntax Validation Rules](#strict-syntax-validation-rules)
-=======
->>>>>>> bbbcdce2373e2ce1cbfae9f5de9834276488902d
 - [File Structure](#file-structure)
 
 ---
