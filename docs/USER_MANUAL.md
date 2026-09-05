@@ -12,7 +12,7 @@ With BNFgen, you can enter any supported programming statement or compound block
 - **Backus–Naur Form (BNF)** representations (both input syntax decomposition and step-by-step canonical leftmost derivations $S \implies^* w$).
 - **Concrete Syntax Trees (CST / Parse Trees)** showing every grammar derivation branch, token, and punctuation leaf.
 - **Abstract Syntax Trees (AST)** formatted in strict adherence to course syllabus guidelines (no artificial wrapper nodes, standard operator notation).
-- **Compiler Metrics** comparing concrete vs. abstract tree nodes and calculating redundancy reduction percentages.
+- **Compiler Metrics** comparing concrete vs. abstract tree nodes and maximum derivation depths.
 
 ---
 
@@ -118,7 +118,7 @@ The BNFgen interface is structured into five cohesive sections with a sticky top
 
 ```text
 ┌───────────────────────────────────────────────────────────────────────────────────┐
-│ [✦ BNFgen Brand]     [01 Input Console] [02 Grammar] [03 BNF] [04 CST] [05 AST]   │
+│ [BNFgen Brand]     [01 Input Console] [02 Grammar] [03 BNF] [04 CST] [05 AST]   │
 └───────────────────────────────────────────────────────────────────────────────────┘
 │                                                                                   │
 │ ┌────────────────────────────────────────┐ ┌────────────────────────────────────┐ │
@@ -142,7 +142,7 @@ The BNFgen interface is structured into five cohesive sections with a sticky top
 │                                                                                   │
 │ ┌───────────────────────────────────────────────────────────────────────────────┐ │
 │ │ [05] Abstract Syntax Tree (AST)                                               │ │
-│ │  • Metrics: Clean AST Nodes, Redundancy Reduction % (-41.7%)                  │ │
+│ │  • Metrics: Clean AST Nodes, Syntactic Delimiters Pruned                      │ │
 │ │  • Syllabus-aligned simplified operator tree                                  │ │
 │ └───────────────────────────────────────────────────────────────────────────────┘ │
 ```
@@ -163,6 +163,8 @@ Use this guide to explain the labels in the visualizer:
    - The rounded capsule badges used in the CST visualizer representing production rules and derived tokens.
 5. **"Pruned Syntax Operator Graph"**:
    - The AST graph where internal nodes are operators (`ASSIGN (=)`, `ADD (+)`, `IF`) and leaves are operands (`x`, `2`).
+6. **"𖣂" Symbol**:
+   - The decorative derivation badge marking the Concrete Parse Tree header.
 
 ---
 
