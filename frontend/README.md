@@ -138,16 +138,3 @@ export default defineConfig({
 });
 ```
 
----
-
-## Design System & CSS Tokens
-
-The visual design system is built in [`src/index.css`](src/index.css) using CSS custom properties:
-- **Max Width**: `min(1560px, calc(100% - 32px))` for expansive multi-column viewing.
-- **Equal Heights**: 770px synchronized height for Section 01 and Section 02 on desktop.
-- **Palette**: Neo-brutalism with bold 2.5px borders, 4px hard box shadows, and distinct accent colors:
-  - `--primary`: `#908df1` (Purple)
-  - `--secondary`: `#c4f000` (Electric Lime)
-  - `--tertiary`: `#ff70a6` (Pink)
-  - `--neutral-dark`: `#121212` (Ink Black)
-  - `--editor-bg`: `#181524` (Deep Night)
