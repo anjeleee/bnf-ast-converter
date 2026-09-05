@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # BNFgen: Technical Documentation
 > **Formal Grammar Specification, Lexical Analysis, Predictive LL(1) Parsing & Dual Tree Synthesis**
 
@@ -594,4 +593,3 @@ The syntax analyzer has been verified against the 8 primary language constructs:
 | **TC-09** | Bare Identifier Rejection | `hello; world;` | REJECTED (ParseError) | — | — |
 | **TC-10** | Standalone Identifier | `oadksa;` | REJECTED (ParseError) | — | — |
 | **TC-11** | Incomplete Syntax | `x = ;` | REJECTED (ParseError) | — | — |
->>>>>>> bbbcdce2373e2ce1cbfae9f5de9834276488902d
