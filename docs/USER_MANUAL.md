@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # BNFgen: User Manual
 > **Comprehensive Guide for Students and Instructors in Compiler Syntax Analysis and Tree Visualization**
 
