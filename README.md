@@ -13,24 +13,24 @@
 ---
 
 ## Table of Contents
-- [Project Overview](#-project-overview)
-- [Key Features](#-key-features)
-- [System Architecture](#-system-architecture)
-- [Prerequisites](#-prerequisites)
-- [Installation & Environment Setup](#-installation--environment-setup)
+- [Project Overview](#project-overview)
+- [Key Features](#key-features)
+- [System Architecture](#system-architecture)
+- [Prerequisites](#prerequisites)
+- [Installation & Environment Setup](#installation--environment-setup)
   - [1. Clone Repository](#1-clone-repository)
   - [2. Backend Setup (Python Virtual Environment)](#2-backend-setup-python-virtual-environment)
   - [3. Frontend Setup (React & Vite)](#3-frontend-setup-react--vite)
-- [Running the Application](#-running-the-application)
+- [Running the Application](#running-the-application)
   - [Method 1: 1-Click Launcher (Windows Recommended)](#method-1-1-click-launcher-windows-recommended)
   - [Method 2: Developer Mode (Live Hot-Reload)](#method-2-developer-mode-live-hot-reload)
   - [Method 3: Production Unified Mode](#method-3-production-unified-mode)
-- [REST API Endpoints](#-rest-api-endpoints)
-- [Supported Language Constructs](#-supported-language-constructs)
-- [Project Structure](#-project-structure)
-- [Troubleshooting & FAQ](#-troubleshooting--faq)
-- [Documentation Index](#-documentation-index)
-- [Authors & License](#-authors--license)
+- [REST API Endpoints](#rest-api-endpoints)
+- [Supported Language Constructs](#supported-language-constructs)
+- [Project Structure](#project-structure)
+- [Troubleshooting & FAQ](#troubleshooting--faq)
+- [Documentation Index](#documentation-index)
+- [Authors & License](#authors--license)
 
 ---
 
@@ -52,9 +52,9 @@ BNFgen provides an interactive, visual environment for students and instructors 
 ## Key Features
 
 - **100% Pure Python Compiler Backend**: Lexical analyzer (`backend/lexer.py`) and recursive-descent parser (`backend/parser.py`) written entirely in Python.
-- **Modern Modular React 19 Frontend**: Component-based UI with interactive collapsible trees, single-row preset chips with navigation arrows (`◀` / `▶`), and sticky topbar navigation.
+- **Modern Modular React 19 Frontend**: Component-based UI with interactive collapsible trees, single-row preset chips with navigation arrows (`<` / `>`), and sticky topbar navigation.
 - **Real-Time Syntax Validation**: Instant feedback informing you whether a statement conforms to grammar rules before synthesizing trees.
-- **Collapsible Hierarchical Tree Visualizer**: Visual representation with custom terminal/non-terminal badges (`𖣂`), branch connectors, and one-click ASCII export.
+- **Collapsible Hierarchical Tree Visualizer**: Visual representation with custom terminal/non-terminal badges, branch connectors, and one-click ASCII export.
 - **Unified Single-Port Hosting**: FastAPI can serve the built React bundle and API endpoints simultaneously from `http://localhost:8000`.
 
 ---
@@ -109,7 +109,7 @@ Before running the project, make sure the following runtimes are installed on yo
 
 > [!IMPORTANT]
 > **Windows Users**: When installing Python from python.org, **MUST** check the box:
-> ☑ **"Add python.exe to PATH"** on the very first installer screen.
+> [x] **"Add python.exe to PATH"** on the very first installer screen.
 
 ---
 
@@ -364,7 +364,7 @@ CCPGLANG/
 │   │   │   ├── Header.jsx          # Brand logo, section navigation pills & engine status
 │   │   │   ├── InputConsole.jsx    # Section 01 (Presets & editor) + Section 02 (CFG accordion)
 │   │   │   ├── BnfCard.jsx         # Section 03 (BNF representation & derivation traces)
-│   │   │   ├── CstCard.jsx         # Section 04 (Concrete Parse Tree visualizer with 𖣂 badge)
+│   │   │   ├── CstCard.jsx         # Section 04 (Concrete Parse Tree visualizer with syntax derivation chips)
 │   │   │   ├── AstCard.jsx         # Section 05 (Syllabus-aligned AST visualizer & metrics)
 │   │   │   └── Footer.jsx          # Bottom brand, engine status, and copyright footer
 │   │   ├── compiler/               # Pure API connector & tree metric utilities

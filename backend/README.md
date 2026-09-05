@@ -11,13 +11,14 @@ This directory houses the 100% pure Python compiler engine for **BNFgen**. All t
 ---
 
 ## Table of Contents
-- [Prerequisites](#-prerequisites)
-- [Environment Setup & Installation](#-environment-setup--installation)
-- [Running the Backend](#-running-the-backend)
-- [Architecture & Engine Pipeline](#-architecture--engine-pipeline)
-- [API Endpoints](#-api-endpoints)
-- [Course Syllabus AST Specification](#-course-syllabus-ast-specification)
-- [File Structure](#-file-structure)
+- [Prerequisites](#prerequisites)
+- [Environment Setup & Installation](#environment-setup--installation)
+- [Running the Backend](#running-the-backend)
+- [Architecture & Engine Pipeline](#architecture--engine-pipeline)
+- [API Endpoints](#api-endpoints)
+- [Course Syllabus AST Specification](#course-syllabus-ast-specification)
+- [Strict Syntax Validation Rules](#strict-syntax-validation-rules)
+- [File Structure](#file-structure)
 
 ---
 
@@ -137,7 +138,7 @@ python main.py
 
 ---
 
-## 📡 API Endpoints
+## API Endpoints
 
 ### `GET /health`
 Verifies that the Python backend compiler engine is operational.

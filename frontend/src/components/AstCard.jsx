@@ -5,7 +5,6 @@ import { countNodes } from "../compiler/treeUtils.js";
 export default function AstCard({ result }) {
   const ast = result?.ast;
   const astNodesCount = result ? countNodes(ast) : 0;
-  const reduction = result?.metrics?.reduction;
 
   return (
     <section id="ast-section" className="neo-card result-row-card accent-pink">
@@ -25,11 +24,6 @@ export default function AstCard({ result }) {
       <div className="result-card-subbar">
         <div className="subbar-left">
           <span className="subbar-label">PRUNED SYNTAX OPERATOR GRAPH</span>
-          {reduction !== undefined && (
-            <span className="badge lime-badge">
-              -{reduction}% Redundancy
-            </span>
-          )}
         </div>
         <div className="subbar-right">
           <span className="subbar-meta">

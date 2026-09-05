@@ -11,13 +11,13 @@ This directory contains the client-side single-page application (SPA) for **BNFg
 ---
 
 ## Table of Contents
-- [Prerequisites](#-prerequisites)
-- [Installation & Environment Setup](#-installation--environment-setup)
-- [Development & Build Scripts](#-development--build-scripts)
-- [Environment Variables (.env)](#-environment-variables-env)
-- [Component Architecture](#-component-architecture)
-- [Backend Proxy & API Connectivity](#-backend-proxy--api-connectivity)
-- [Design System & CSS Tokens](#-design-system--css-tokens)
+- [Prerequisites](#prerequisites)
+- [Installation & Environment Setup](#installation--environment-setup)
+- [Development & Build Scripts](#development--build-scripts)
+- [Environment Variables (.env)](#environment-variables-env)
+- [Component Architecture](#component-architecture)
+- [Backend Proxy & API Connectivity](#backend-proxy--api-connectivity)
+- [Design System & CSS Tokens](#design-system--css-tokens)
 
 ---
 
@@ -96,7 +96,7 @@ frontend/src/
 │   ├── Header.jsx              # Topbar navigation, brand logo, section pills, engine status
 │   ├── InputConsole.jsx        # Section 01 (Presets strip & code editor) + Section 02 (CFG accordion)
 │   ├── BnfCard.jsx             # Section 03 (BNF representation, leftmost derivation, rules)
-│   ├── CstCard.jsx             # Section 04 (Concrete Parse Tree visualizer with 𖣂 badge)
+│   ├── CstCard.jsx             # Section 04 (Concrete Parse Tree visualizer with syntax derivation chips)
 │   ├── AstCard.jsx             # Section 05 (Syllabus-aligned AST visualizer & redundancy %)
 │   └── Footer.jsx              # Bottom branding, architecture status & copyright footer
 │
