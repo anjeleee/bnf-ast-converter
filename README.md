@@ -120,8 +120,8 @@ Before running the project, make sure the following runtimes are installed on yo
 Open your terminal (PowerShell, Command Prompt, or Bash) and clone the repository:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/ccpglang-bnfgen.git
-cd ccpglang-bnfgen
+[https://github.com/anjeleee/bnf-ast-converter.git]
+cd bnf-ast-converter.git
 ```
 
 ---
