@@ -151,7 +151,7 @@ The BNFgen interface is structured into five cohesive sections with a sticky top
 
 ## 6. Understanding Compiler Terms in the UI
 
-When presenting your project, use this guide to explain the labels in the visualizer:
+Use this guide to explain the labels in the visualizer:
 
 1. **"Concrete Terminals Included"**:
    - The CST retains every literal character and keyword from source code (e.g. `if`, `(`, `)`, `;`, `=`).
@@ -163,8 +163,6 @@ When presenting your project, use this guide to explain the labels in the visual
    - The rounded capsule badges used in the CST visualizer representing production rules and derived tokens.
 5. **"Pruned Syntax Operator Graph"**:
    - The AST graph where internal nodes are operators (`ASSIGN (=)`, `ADD (+)`, `IF`) and leaves are operands (`x`, `2`).
-6. **"𖣂" Symbol**:
-   - The decorative derivation badge marking the Concrete Parse Tree header.
 
 ---
 
