@@ -10,7 +10,7 @@ This directory contains the client-side single-page application (SPA) for **BNFg
 
 ---
 
-## 📑 Table of Contents
+## Table of Contents
 - [Prerequisites](#-prerequisites)
 - [Installation & Environment Setup](#-installation--environment-setup)
 - [Development & Build Scripts](#-development--build-scripts)
@@ -21,7 +21,7 @@ This directory contains the client-side single-page application (SPA) for **BNFg
 
 ---
 
-## 📋 Prerequisites
+## Prerequisites
 
 Make sure you have installed:
 - **Node.js**: `18.0.0` or newer (`20.x` or `22.x` LTS recommended). [Download Node.js](https://nodejs.org/)
