@@ -17,7 +17,6 @@ This directory contains the client-side single-page application (SPA) for **BNFg
 - [Environment Variables (.env)](#-environment-variables-env)
 - [Component Architecture](#-component-architecture)
 - [Backend Proxy & API Connectivity](#-backend-proxy--api-connectivity)
-- [Design System & CSS Tokens](#-design-system--css-tokens)
 
 ---
 
