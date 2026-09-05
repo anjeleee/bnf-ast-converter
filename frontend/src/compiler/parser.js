@@ -3,7 +3,7 @@
 const API_BASE =
   import.meta.env.VITE_API_URL ||
   (typeof window !== "undefined" && window.location.port === "5173"
-    ? "http://127.0.0.1:8000"
+    ? "https://bnf-ast-converter.onrender.com"
     : "");
 
 export class ParseError extends Error {
@@ -94,3 +94,4 @@ export async function parseCode(code) {
 
   return data;
 }
+
