@@ -7,8 +7,8 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      '/parse': 'https://bnf-ast-converter.onrender.com',
-      '/health': 'https://bnf-ast-converter.onrender.com'
+      '/parse': 'http://127.0.0.1:8000',
+      '/health': 'http://127.0.0.1:8000'
     }
   }
 })
