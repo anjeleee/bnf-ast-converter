@@ -11,12 +11,12 @@ This directory contains the client-side single-page application (SPA) for **BNFg
 ---
 
 ## Table of Contents
-- [Prerequisites](#-prerequisites)
-- [Installation & Environment Setup](#-installation--environment-setup)
-- [Development & Build Scripts](#-development--build-scripts)
-- [Environment Variables (.env)](#-environment-variables-env)
-- [Component Architecture](#-component-architecture)
-- [Backend Proxy & API Connectivity](#-backend-proxy--api-connectivity)
+- [Prerequisites](#prerequisites)
+- [Installation & Environment Setup](#installation--environment-setup)
+- [Development & Build Scripts](#development--build-scripts)
+- [Environment Variables (.env)](#environment-variables-env)
+- [Component Architecture](#component-architecture)
+- [Backend Proxy & API Connectivity](#backend-proxy--api-connectivity)
 
 ---
 
@@ -96,7 +96,7 @@ frontend/src/
 │   ├── InputConsole.jsx        # Section 01 (Presets strip & code editor) + Section 02 (CFG accordion)
 │   ├── BnfCard.jsx             # Section 03 (BNF representation, leftmost derivation, rules)
 │   ├── CstCard.jsx             # Section 04 (Concrete Parse Tree visualizer with 𖣂 badge)
-│   ├── AstCard.jsx             # Section 05 (Syllabus-aligned AST visualizer & redundancy %)
+│   ├── AstCard.jsx             # Section 05 (Syllabus-aligned AST visualizer & operator graph)
 │   └── Footer.jsx              # Bottom branding, architecture status & copyright footer
 │
 ├── compiler/                   # Pure API client & tree calculation utilities (NO JS parser)
@@ -136,4 +136,3 @@ export default defineConfig({
   }
 });
 ```
-
