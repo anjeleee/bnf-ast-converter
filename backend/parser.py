@@ -689,7 +689,6 @@ def parse_code(source: str) -> Dict[str, Any]:
 
     cst_n = count_nodes(cst)
     ast_n = count_nodes(ast)
-    reduction = max(0, round(((cst_n - ast_n) / cst_n) * 100)) if cst_n > 0 else 0
 
     clean_bnf = generate_clean_input_bnf(ast)
     derivation_bnf = generate_leftmost_derivation(cst)
@@ -730,8 +729,6 @@ def parse_code(source: str) -> Dict[str, Any]:
             "astNodes": ast_n,
             "ast_nodes": ast_n,
             "astDepth": ast_depth,
-            "ast_depth": ast_depth,
-            "redundancyReduction": reduction,
-            "redundancy_reduction": reduction
+            "ast_depth": ast_depth
         }
     }
