@@ -17,7 +17,10 @@ This directory contains the client-side single-page application (SPA) for **BNFg
 - [Environment Variables (.env)](#environment-variables-env)
 - [Component Architecture](#component-architecture)
 - [Backend Proxy & API Connectivity](#backend-proxy--api-connectivity)
+<<<<<<< HEAD
 - [Design System & CSS Tokens](#design-system--css-tokens)
+=======
+>>>>>>> bbbcdce2373e2ce1cbfae9f5de9834276488902d
 
 ---
 
@@ -96,8 +99,13 @@ frontend/src/
 │   ├── Header.jsx              # Topbar navigation, brand logo, section pills, engine status
 │   ├── InputConsole.jsx        # Section 01 (Presets strip & code editor) + Section 02 (CFG accordion)
 │   ├── BnfCard.jsx             # Section 03 (BNF representation, leftmost derivation, rules)
+<<<<<<< HEAD
 │   ├── CstCard.jsx             # Section 04 (Concrete Parse Tree visualizer with syntax derivation chips)
 │   ├── AstCard.jsx             # Section 05 (Syllabus-aligned AST visualizer & redundancy %)
+=======
+│   ├── CstCard.jsx             # Section 04 (Concrete Parse Tree visualizer with 𖣂 badge)
+│   ├── AstCard.jsx             # Section 05 (Syllabus-aligned AST visualizer & operator graph)
+>>>>>>> bbbcdce2373e2ce1cbfae9f5de9834276488902d
 │   └── Footer.jsx              # Bottom branding, architecture status & copyright footer
 │
 ├── compiler/                   # Pure API client & tree calculation utilities (NO JS parser)
@@ -137,17 +145,3 @@ export default defineConfig({
   }
 });
 ```
-
----
-
-## Design System & CSS Tokens
-
-The visual design system is built in [`src/index.css`](src/index.css) using CSS custom properties:
-- **Max Width**: `min(1560px, calc(100% - 32px))` for expansive multi-column viewing.
-- **Equal Heights**: 770px synchronized height for Section 01 and Section 02 on desktop.
-- **Palette**: Neo-brutalism with bold 2.5px borders, 4px hard box shadows, and distinct accent colors:
-  - `--primary`: `#908df1` (Purple)
-  - `--secondary`: `#c4f000` (Electric Lime)
-  - `--tertiary`: `#ff70a6` (Pink)
-  - `--neutral-dark`: `#121212` (Ink Black)
-  - `--editor-bg`: `#181524` (Deep Night)

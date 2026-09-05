@@ -17,7 +17,10 @@ This directory houses the 100% pure Python compiler engine for **BNFgen**. All t
 - [Architecture & Engine Pipeline](#architecture--engine-pipeline)
 - [API Endpoints](#api-endpoints)
 - [Course Syllabus AST Specification](#course-syllabus-ast-specification)
+<<<<<<< HEAD
 - [Strict Syntax Validation Rules](#strict-syntax-validation-rules)
+=======
+>>>>>>> bbbcdce2373e2ce1cbfae9f5de9834276488902d
 - [File Structure](#file-structure)
 
 ---
@@ -206,9 +209,11 @@ curl -X POST http://127.0.0.1:8000/parse \
   "bnf_derivation": "<program> => <statement_list> => ...",
   "bnf_relevant": "<if_statement> ::= 'if' '(' <condition> ')' <statement>\n<condition> ::= <expression> '==' <expression>",
   "metrics": {
-    "cstNodes": 12,
-    "astNodes": 7,
-    "reduction": 41.7
+    "cstNodes": 14,
+    "cstDepth": 6,
+    "cstTerminals": 7,
+    "astNodes": 6,
+    "astDepth": 3
   }
 }
 ```
