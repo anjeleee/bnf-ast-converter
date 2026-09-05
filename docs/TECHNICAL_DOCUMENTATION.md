@@ -10,7 +10,7 @@ The **BNFgen** system is a deterministic syntax analysis suite designed to analy
 1. **Backus–Naur Form (BNF)** representations (both input statement decomposition and canonical leftmost derivation traces).
 2. **Concrete Syntax Trees (CST / Parse Trees)** reflecting the exact grammatical derivations of the Context-Free Grammar.
 3. **Abstract Syntax Trees (AST)** presenting condensed semantic hierarchies that eliminate syntactic noise (delimiters, semicolons, and parentheses) and conform 100% to academic syllabus specifications.
-4. **Compiler Optimization Metrics** reporting concrete vs. abstract tree nodes and calculating redundancy reduction percentages.
+4. **Compiler Tree Metrics** reporting concrete vs. abstract tree node counts and derivation depths.
 
 The system features a dual architecture:
 - **Core Engine (Pure Python)**: A handcrafted lexical analyzer (regex token matcher) and predictive LL(1) recursive-descent parser exposed via a FastAPI REST service. Zero JavaScript is used in the compiler backend.
@@ -157,14 +157,11 @@ Concrete Parse Tree (CST)                               Syllabus-Aligned AST
                                'x' '+' '1'
 ```
 
-### 5.3 Redundancy Reduction Metric
-To evaluate the optimization between concrete syntax and abstract semantics, the system calculates the **Redundancy Reduction Percentage**:
-$$\text{Reduction} = \max\left(0, \left\lfloor \frac{N_{\text{CST}} - N_{\text{AST}}}{N_{\text{CST}}} \times 100 \right\rfloor\right)$$
-Where:
-- $N_{\text{CST}} =$ Total nodes in the Concrete Syntax Tree.
-- $N_{\text{AST}} =$ Total nodes in the Abstract Syntax Tree.
-
-Typical results show a **40% to 65% reduction** in structural redundancy.
+### 5.3 Structural Comparison: CST vs. AST
+The compiler calculates structural metrics between the concrete parse tree and abstract syntax tree:
+- **CST Node Count ($N_{\text{CST}}$)**: Reflects the full grammar expansion including non-terminals, delimiters, and operators.
+- **AST Node Count ($N_{\text{AST}}$)**: Reflects pure executable semantics (operators and operands only).
+- **Tree Depth**: Measures the maximum nesting level of the derivation hierarchy.
 
 ---
 
@@ -207,16 +204,16 @@ The system catches exceptions at the API boundary, returning a structured JSON r
 
 The syntax analyzer has been verified against the 8 primary language constructs:
 
-| ID | Construct Category | Test Statement | Status | CST Nodes | AST Nodes | Reduction |
-| :--- | :--- | :--- | :---: | :---: | :---: | :---: |
-| **TC-01** | Variable Declaration | `int a = 10;` | PASS | 6 | 3 | 50% |
-| **TC-02** | Assignment Statement | `a = b * (c + 2);` | PASS | 12 | 5 | 58% |
-| **TC-03** | Standalone Expression | `2 + 7` | PASS | 4 | 3 | 25% |
-| **TC-04** | Conditional Branching | `if (x == 5) y = x + 1;` | PASS | 14 | 6 | 57% |
-| **TC-05** | Iteration Loop | `while (count < 10) count = count + 1;` | PASS | 15 | 6 | 60% |
-| **TC-06** | Compound Block | `{ int x = 1; y = x + 2; }` | PASS | 16 | 7 | 56% |
-| **TC-07** | Output Streaming | `cout << message;` | PASS | 5 | 2 | 60% |
-| **TC-08** | Input Streaming | `cin >> value;` | PASS | 5 | 2 | 60% |
-| **TC-09** | Bare Identifier Rejection | `hello; world;` | REJECTED (ParseError) | — | — | — |
-| **TC-10** | Standalone Identifier | `oadksa;` | REJECTED (ParseError) | — | — | — |
-| **TC-11** | Incomplete Syntax | `x = ;` | REJECTED (ParseError) | — | — | — |
+| ID | Construct Category | Test Statement | Status | CST Nodes | AST Nodes |
+| :--- | :--- | :--- | :---: | :---: | :---: |
+| **TC-01** | Variable Declaration | `int a = 10;` | PASS | 6 | 3 |
+| **TC-02** | Assignment Statement | `a = b * (c + 2);` | PASS | 12 | 5 |
+| **TC-03** | Standalone Expression | `2 + 7` | PASS | 4 | 3 |
+| **TC-04** | Conditional Branching | `if (x == 5) y = x + 1;` | PASS | 14 | 6 |
+| **TC-05** | Iteration Loop | `while (count < 10) count = count + 1;` | PASS | 15 | 6 |
+| **TC-06** | Compound Block | `{ int x = 1; y = x + 2; }` | PASS | 16 | 7 |
+| **TC-07** | Output Streaming | `cout << message;` | PASS | 5 | 2 |
+| **TC-08** | Input Streaming | `cin >> value;` | PASS | 5 | 2 |
+| **TC-09** | Bare Identifier Rejection | `hello; world;` | REJECTED (ParseError) | — | — |
+| **TC-10** | Standalone Identifier | `oadksa;` | REJECTED (ParseError) | — | — |
+| **TC-11** | Incomplete Syntax | `x = ;` | REJECTED (ParseError) | — | — |
