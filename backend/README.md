@@ -17,10 +17,7 @@ This directory houses the 100% pure Python compiler engine for **BNFgen**. All t
 - [Architecture & Engine Pipeline](#architecture--engine-pipeline)
 - [API Endpoints](#api-endpoints)
 - [Course Syllabus AST Specification](#course-syllabus-ast-specification)
-<<<<<<< HEAD
 - [Strict Syntax Validation Rules](#strict-syntax-validation-rules)
-=======
->>>>>>> bbbcdce2373e2ce1cbfae9f5de9834276488902d
 - [File Structure](#file-structure)
 
 ---
@@ -93,7 +90,7 @@ python -m uvicorn main:app --host 127.0.0.1 --port 8000 --reload
 ```bash
 python main.py
 ```
-*Note: If `frontend/dist` exists, `main.py` will automatically mount and serve the graphical React web application at `http://localhost:8000` alongside the REST API!*
+*Note: `main.py` automatically mounts and serves the lightweight HTML5/CSS3/JavaScript web interface directly from `frontend/` at `http://localhost:8000` alongside the REST API!*
 
 ---
 

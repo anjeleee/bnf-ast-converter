@@ -1,16 +1,393 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BNFgen — Compiler Syntax &amp; Tree Visualizer</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C++ Compiler Syntax &amp; Tree Visualizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="page-wrapper">
+    <main class="app-shell">
+      <!-- TOPBAR NAVIGATION -->
+      <header class="topbar">
+        <a class="brand" href="#input-section" id="brand-link">
+          <span class="brand-mark">✦</span>
+          <span class="brand-text">BNF<span class="brand-accent">gen</span>.</span>
+        </a>
+
+        <nav class="nav-pill-group" aria-label="Page Sections">
+          <button type="button" class="nav-pill active" data-target="input">01 Input Console</button>
+          <button type="button" class="nav-pill" data-target="features">02 Grammar Features</button>
+          <button type="button" class="nav-pill" data-target="bnf">03 BNF Output</button>
+          <button type="button" class="nav-pill" data-target="cst">04 Parse Tree (CST)</button>
+          <button type="button" class="nav-pill" data-target="ast">05 AST Viewer</button>
+        </nav>
+
+        <div class="status-pill is-ready" id="engine-status-pill" title="Active Engine: C++ FastAPI Engine (Port 8000)">
+          <span class="status-dot"></span>
+          <span class="status-label" id="engine-status-label">C++ FastAPI Engine (Port 8000)</span>
+        </div>
+      </header>
+
+      <!-- TOP SPLIT LAYOUT: Section 01 & Section 02 -->
+      <div class="top-split-layout">
+        <!-- SECTION 01: Source Code Input Console -->
+        <section id="input-section" class="neo-card input-card accent-purple" aria-label="Source code input">
+          <header class="result-card-header">
+            <div class="header-left">
+              <div class="number-box num-purple">01</div>
+              <div>
+                <h2 class="result-card-heading">C++ Source Code Input</h2>
+                <span class="result-card-subheading">C++ LL(1) RECURSIVE DESCENT SYNTAX ANALYZER</span>
+              </div>
+            </div>
+            <div class="header-right">
+              <button class="neo-button secondary-btn clear-btn" type="button" id="clear-btn" title="Clear editor content">
+                Clear Input
+              </button>
+            </div>
+          </header>
+
+          <div class="result-card-subbar">
+            <div class="subbar-left">
+              <span class="subbar-label">ACCEPTED FORMATS</span>
+              <span class="badge soft-pill">C++ Statements, Expressions or Blocks</span>
+            </div>
+            <div class="subbar-right">
+              <span class="subbar-meta">Deterministic Match</span>
+            </div>
+          </div>
+
+          <p className="card-subtitle">
+            Enter your C++ source statement, expression, or block below to automatically generate formal BNF representation, concrete parse tree derivation, and simplified AST.
+          </p>
+
+          <!-- Quick Presets Row -->
+          <div class="presets-container" aria-label="Quick Presets">
+            <span class="presets-label">QUICK PRESETS:</span>
+            <div class="presets-scroll-wrapper">
+              <button type="button" class="preset-scroll-arrow left" id="preset-scroll-left" title="Scroll presets left" aria-label="Scroll presets left">◀</button>
+              <div class="presets-chips" id="presets-chips"></div>
+              <button type="button" class="preset-scroll-arrow right" id="preset-scroll-right" title="Scroll presets right" aria-label="Scroll presets right">▶</button>
+            </div>
+          </div>
+
+          <!-- Code Editor Box -->
+          <div class="editor-window">
+            <div class="editor-window-bar">
+              <div class="window-dots">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+                <span class="window-filename">main.cpp</span>
+              </div>
+              <div class="window-meta">
+                <span id="statement-count-label">1 Statement / Expression • Deterministic C++ Match</span>
+              </div>
+            </div>
+
+            <textarea
+              class="source-editor"
+              id="source-editor"
+              rows="6"
+              spellcheck="false"
+              placeholder='e.g. int x = 10; or cout &lt;&lt; "Result: " &lt;&lt; total; or if (x == 5) y = x + 1;'
+            ></textarea>
+
+            <!-- Editor Bottom Bar -->
+            <div class="editor-bottom-bar">
+              <div class="editor-bottom-left">
+                <div class="pipeline-status" id="pipeline-status-indicator" title="Active: C++ FastAPI Engine (Port 8000)">
+                  <span class="pipeline-dot"></span>
+                  <span id="pipeline-status-text">C++ FastAPI Engine • LL(1) Ready</span>
+                </div>
+                <span class="validation-hint valid" id="validation-hint">● C++ Syntax Validated</span>
+              </div>
+
+              <div class="editor-actions-right">
+                <button class="neo-button validate-action-btn is-validated" type="button" id="validate-btn">Validated</button>
+                <button class="neo-button generate-btn" type="button" id="generate-btn" title="Generate BNF, CST and AST">
+                  <span id="generate-btn-text">Generate BNF, CST &amp; AST →</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Alerts / Feedback -->
+          <div id="alert-container">
+            <div class="neo-alert alert-success" role="status">
+              <span class="alert-tag valid">VALID</span>
+              <div class="alert-content">
+                <strong>C++ Grammar Validation Passed:</strong> Statement conforms deterministically to C++ LL(1) formal specifications. Ready to generate.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 02: Supported Grammar Features Panel -->
+        <section id="features-section" class="neo-card features-side-card accent-purple" aria-label="Supported Grammar Features">
+          <header class="result-card-header">
+            <div class="header-left">
+              <div class="number-box num-purple">02</div>
+              <div>
+                <h2 class="result-card-heading">Supported C++ Grammar</h2>
+                <span class="result-card-subheading">FORMAL C++ CONTEXT-FREE GRAMMAR (CFG)</span>
+              </div>
+            </div>
+            <div class="header-right">
+              <span class="grammar-type-badge">C++ LL(1) CFG</span>
+            </div>
+          </header>
+
+          <div class="result-card-subbar">
+            <div class="subbar-left">
+              <span class="subbar-label">C++ CONSTRUCTS</span>
+              <span class="badge soft-pill">8 Supported</span>
+            </div>
+            <div class="subbar-right">
+              <span class="subbar-meta">Deterministic Grammar</span>
+            </div>
+          </div>
+
+          <p class="card-subtitle">
+            Inspect the 8 core C++ language constructs recognized by the LL(1) parser or explore the full Context-Free Grammar production rules.
+          </p>
+
+          <!-- 2-Layer Accordion -->
+          <div class="grammar-layers-container">
+            <!-- LAYER 1 BUTTON -->
+            <button type="button" class="layer-toggle-btn is-active" id="btn-layer-constructs">
+              <span class="layer-btn-title">
+                <span class="layer-arrow" id="constructs-arrow">▼</span>
+                <span id="constructs-btn-text">Supported C++ Language Constructs</span>
+              </span>
+              <span class="badge soft-pill" id="constructs-badge">8 Active</span>
+            </button>
+
+            <!-- LAYER 1 CONTENT -->
+            <div class="features-side-list" id="features-list" aria-label="8 Language Constructs"></div>
+
+            <!-- LAYER 2 BUTTON -->
+            <button type="button" class="layer-toggle-btn" id="btn-layer-cfg">
+              <span class="layer-btn-title">
+                <span class="layer-arrow" id="cfg-arrow">▶</span>
+                <span id="cfg-btn-text">View Complete Formal C++ Grammar (CFG)</span>
+              </span>
+              <span class="badge soft-pill" id="cfg-badge">19 Rules</span>
+            </button>
+
+            <!-- LAYER 2 CONTENT -->
+            <div class="terminal-code-box cfg-box" id="cfg-code-box" style="display: none;" aria-label="Complete Formal Grammar">
+              <div class="tree-toolbar">
+                <span class="subbar-label">COMPLETE FORMAL C++ BACKUS-NAUR FORM (BNF)</span>
+                <button type="button" class="copy-btn" id="copy-cfg-btn">Copy Full CFG</button>
+              </div>
+              <pre class="bnf-code-display" id="full-cfg-display"></pre>
+            </div>
+          </div>
+
+          <footer class="result-card-footer">
+            <div class="footer-left">
+              <span class="dot dot-valid"></span>
+              <span>Complete &amp; Deterministic</span>
+            </div>
+            <div class="footer-right">
+              <span class="badge soft-pill">8 Constructs</span>
+            </div>
+          </footer>
+        </section>
+      </div>
+
+      <!-- RESULTS STACKED CONTAINER: Sections 03, 04, 05 -->
+      <div class="results-stacked-container" aria-label="Parser and Grammar Results">
+        <!-- SECTION 03: BNF Card -->
+        <section id="bnf-section" class="neo-card result-row-card accent-purple">
+          <header class="result-card-header">
+            <div class="header-left">
+              <div class="number-box num-purple">03</div>
+              <div>
+                <h2 class="result-card-heading">Backus–Naur Form (BNF)</h2>
+                <span class="result-card-subheading">FORMAL GRAMMAR &amp; DERIVATION REPRESENTATION</span>
+              </div>
+            </div>
+            <div class="header-right">
+              <span class="header-icon-symbol" title="Grammar productions">{ }</span>
+            </div>
+          </header>
+
+          <div class="result-card-subbar">
+            <div class="subbar-left">
+              <span class="subbar-label" id="bnf-subbar-label">INPUT STATEMENT BNF REPRESENTATION</span>
+              <span class="badge lime-badge" id="bnf-badge-label">Statement BNF Active</span>
+            </div>
+            <div class="subbar-right">
+              <div class="segmented-tabs" role="tablist">
+                <button type="button" class="tab-btn tab-active" data-bnf="representation">BNF Representation (Input)</button>
+                <button type="button" class="tab-btn" data-bnf="derivation">Step-by-Step Derivation (⇒)</button>
+                <button type="button" class="tab-btn" data-bnf="relevant">Applied Rules</button>
+              </div>
+              <button type="button" class="copy-btn" id="copy-bnf-btn" title="Copy BNF content">Copy BNF</button>
+            </div>
+          </div>
+
+          <div class="terminal-code-box">
+            <pre class="bnf-code-display" id="bnf-display">&lt;statement&gt; ::= &lt;empty&gt;</pre>
+            <div class="terminal-box-footer">
+              <span class="dot dot-valid"></span>
+              <span id="bnf-footer-meta">Exact Statement BNF Decomposition • Validated</span>
+            </div>
+          </div>
+
+          <footer class="result-card-footer">
+            <div class="footer-left">
+              <span class="dot dot-valid"></span>
+              <span>BNF Representation: Verified</span>
+            </div>
+            <div class="footer-right">
+              <span class="pill-badge">Deterministic LL(1)</span>
+            </div>
+          </footer>
+        </section>
+
+        <!-- SECTION 04: Concrete Parse Tree (CST) -->
+        <section id="cst-section" class="neo-card result-row-card accent-lime">
+          <header class="result-card-header">
+            <div class="header-left">
+              <div class="number-box num-lime">04</div>
+              <div>
+                <h2 class="result-card-heading">Concrete Parse Tree (CST)</h2>
+                <span class="result-card-subheading">FULL DERIVATION HIERARCHY</span>
+              </div>
+            </div>
+            <div class="header-right">
+              <span class="header-icon-symbol" title="Concrete Parse Tree">𖣂</span>
+            </div>
+          </header>
+
+          <div class="result-card-subbar">
+            <div class="subbar-left">
+              <span class="subbar-label">SYNTAX DERIVATION CHIPS</span>
+              <span class="badge purple-badge" id="cst-nodes-badge">Waiting for input</span>
+            </div>
+            <div class="subbar-right">
+              <span class="subbar-meta" id="cst-subbar-meta">
+                Concrete Terminals: <strong>0</strong> Included • Depth: <strong>0</strong> Levels
+              </span>
+            </div>
+          </div>
+
+          <div class="tree-display-box">
+            <div class="tree-view-wrapper">
+              <div class="tree-toolbar">
+                <div class="tree-toolbar-left">
+                  <button type="button" class="tree-toggle-btn active" id="cst-toggle-graph">Derivation Chips</button>
+                  <button type="button" class="tree-toggle-btn" id="cst-toggle-ascii">ASCII Tree</button>
+                </div>
+                <div class="tree-toolbar-right">
+                  <button type="button" class="copy-btn" id="copy-cst-ascii-btn" title="Copy ASCII tree to clipboard">Copy Tree</button>
+                </div>
+              </div>
+              <div class="tree-graph-container" id="cst-graph-container">
+                <ul class="tree-graph-root" id="cst-graph-root"></ul>
+              </div>
+              <pre class="tree-ascii-block" id="cst-ascii-block" style="display: none;"></pre>
+            </div>
+            <div class="tree-box-meta-footer">
+              <span id="cst-terminals-footer">Concrete Terminals: 0 Included</span>
+              <span id="cst-depth-footer">Max Derivation Depth: 0 Levels</span>
+            </div>
+          </div>
+
+          <footer class="result-card-footer">
+            <div class="footer-left">
+              <span class="dot dot-valid"></span>
+              <span>Derivation: Top-Down Recursive</span>
+            </div>
+            <div class="footer-right">
+              <span class="pill-badge">CST Complete</span>
+            </div>
+          </footer>
+        </section>
+
+        <!-- SECTION 05: Abstract Syntax Tree (AST) -->
+        <section id="ast-section" class="neo-card result-row-card accent-pink">
+          <header class="result-card-header">
+            <div class="header-left">
+              <div class="number-box num-pink">05</div>
+              <div>
+                <h2 class="result-card-heading">Abstract Syntax Tree (AST)</h2>
+                <span class="result-card-subheading">SIMPLIFIED OPERATOR REPRESENTATION</span>
+              </div>
+            </div>
+            <div class="header-right">
+              <span class="header-icon-symbol" title="Abstract Syntax Tree">❖</span>
+            </div>
+          </header>
+
+          <div class="result-card-subbar">
+            <div class="subbar-left">
+              <span class="subbar-label">PRUNED SYNTAX OPERATOR GRAPH</span>
+            </div>
+            <div class="subbar-right">
+              <span class="subbar-meta" id="ast-subbar-meta">
+                Operators &amp; Operands: <strong>0</strong> Clean AST Nodes
+              </span>
+            </div>
+          </div>
+
+          <div class="tree-display-box">
+            <div class="tree-view-wrapper">
+              <div class="tree-toolbar">
+                <div class="tree-toolbar-left">
+                  <button type="button" class="tree-toggle-btn active" id="ast-toggle-graph">Derivation Chips</button>
+                  <button type="button" class="tree-toggle-btn" id="ast-toggle-ascii">ASCII Tree</button>
+                </div>
+                <div class="tree-toolbar-right">
+                  <button type="button" class="copy-btn" id="copy-ast-ascii-btn" title="Copy ASCII tree to clipboard">Copy Tree</button>
+                </div>
+              </div>
+              <div class="tree-graph-container" id="ast-graph-container">
+                <ul class="tree-graph-root" id="ast-graph-root"></ul>
+              </div>
+              <pre class="tree-ascii-block" id="ast-ascii-block" style="display: none;"></pre>
+            </div>
+            <div class="tree-box-meta-footer">
+              <span>Syntactic Delimiters: Pruned</span>
+              <span>Optimized for IR CodeGen</span>
+            </div>
+          </div>
+
+          <footer class="result-card-footer">
+            <div class="footer-left">
+              <span class="dot dot-valid"></span>
+              <span>Pruned Punctuation &amp; Delimiters</span>
+            </div>
+            <div class="footer-right">
+              <span class="pill-badge">AST Verified</span>
+            </div>
+          </footer>
+        </section>
+      </div>
+
+      <!-- FOOTER -->
+      <footer class="app-footer">
+        <div class="footer-brand">
+          <strong>BNFgen.</strong>
+          <span>© C++ Compiler Syntax &amp; Tree Visualizer</span>
+        </div>
+        <div class="footer-status">
+          <span id="footer-engine-status">C++ FastAPI Engine (Port 8000) • LL(1) CST &amp; AST Synthesis</span>
+          <span class="badge lime-badge active-tag">ACTIVE</span>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
 </html>
+

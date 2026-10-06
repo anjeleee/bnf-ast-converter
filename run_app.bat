@@ -55,30 +55,11 @@ for /f "tokens=5" %%a in ('netstat -aon 2^>nul ^| findstr ":8000" ^| findstr "LI
     )
 )
 
-:: 4. Verify Frontend Assets
-if not exist "%~dp0frontend\dist\index.html" (
-    echo [*] Frontend production bundle not found in frontend\dist.
-    echo [*] Checking for Node.js and npm...
-    where npm >nul 2>nul
-    if !errorlevel! equ 0 (
-        echo [*] Building frontend production bundle...
-        cd /d "%~dp0frontend"
-        if not exist "node_modules\" (
-            echo [*] Installing npm dependencies...
-            call npm install
-        )
-        call npm run build
-        cd /d "%~dp0"
-    ) else (
-        echo [WARNING] Node.js is not installed.
-        echo Please install Node.js from https://nodejs.org/
-    )
-)
-
-if exist "%~dp0frontend\dist\index.html" (
-    echo [*] Frontend production bundle verified.
+:: 4. Verify Web Assets
+if exist "%~dp0frontend\index.html" (
+    echo [*] Frontend web interface verified (pure HTML/CSS/JS mode).
 ) else (
-    echo [WARNING] Frontend dist not found. Web interface may show 404.
+    echo [WARNING] frontend\index.html not found.
 )
 
 echo.

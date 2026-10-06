@@ -1,147 +1,86 @@
 # BNFgen: Frontend Web Visualizer
-> **Modern Interactive Interface for Compiler Syntax Analysis & Tree Visualization**
+> **Lightweight Interactive Interface for C++ Compiler Syntax Analysis & Tree Visualization**
 
-[![React](https://img.shields.io/badge/React-19.0-61DAFB.svg?logo=react&logoColor=black)](https://react.dev/)
-[![Vite](https://img.shields.io/badge/Vite-8.0-646CFF.svg?logo=vite&logoColor=white)](https://vitejs.dev/)
-[![JavaScript](https://img.shields.io/badge/JavaScript-ES2023-F7DF1E.svg?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26.svg?logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+[![CSS3](https://img.shields.io/badge/CSS3-1572B6.svg?logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E.svg?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](../LICENSE)
 
-This directory contains the client-side single-page application (SPA) for **BNFgen**. Built with **React 19**, **Vite**, and custom responsive neo-brutalist styling, it communicates directly with the Python FastAPI compiler engine to visualize formal syntax decompositions and interactive parse trees.
+This directory contains the client-side web application for **BNFgen**. Built with **pure HTML5, CSS3, and Vanilla JavaScript**, it requires zero Node.js, zero npm packages, and zero build compilation steps. It is served directly by the Python FastAPI backend engine to visualize formal C++ syntax decompositions, Concrete Parse Trees (CST), and Abstract Syntax Trees (AST).
 
 ---
 
 ## Table of Contents
 - [Prerequisites](#prerequisites)
-- [Installation & Environment Setup](#installation--environment-setup)
-- [Development & Build Scripts](#development--build-scripts)
-- [Environment Variables (.env)](#environment-variables-env)
-- [Component Architecture](#component-architecture)
-- [Backend Proxy & API Connectivity](#backend-proxy--api-connectivity)
-<<<<<<< HEAD
+- [Directory Structure](#directory-structure)
+- [Architecture & Execution Flow](#architecture--execution-flow)
 - [Design System & CSS Tokens](#design-system--css-tokens)
-=======
->>>>>>> bbbcdce2373e2ce1cbfae9f5de9834276488902d
+- [Connecting to Backend](#connecting-to-backend)
 
 ---
 
 ## Prerequisites
 
-Make sure you have installed:
-- **Node.js**: `18.0.0` or newer (`20.x` or `22.x` LTS recommended). [Download Node.js](https://nodejs.org/)
-- **npm**: `9.0.0` or newer (comes bundled with Node.js).
-- Running **Python FastAPI Backend** (on `http://127.0.0.1:8000`).
-
-Check your Node.js and npm versions:
-```bash
-node -v
-npm -v
-```
+- **Python**: Version 3.8+ (running the FastAPI backend on `http://127.0.0.1:8000`).
+- **Web Browser**: Any modern browser (Google Chrome, Microsoft Edge, Mozilla Firefox, Safari).
+- *(Note: Node.js and npm are NOT required).*
 
 ---
 
-## Installation & Environment Setup
-
-### 1. Install Node Dependencies
-Navigate into the `frontend/` directory and install all required npm packages:
-```bash
-cd frontend
-npm install
-```
-
-### 2. Configure Environment Variables
-Create your local `.env` file by copying the template `.env.example`:
-```bash
-# Windows
-copy .env.example .env
-
-# macOS / Linux
-cp .env.example .env
-```
-
-The default contents of `.env`:
-```env
-# Base URL for the Python FastAPI backend engine
-VITE_API_URL=http://127.0.0.1:8000
-```
-
----
-
-## Development & Build Scripts
-
-| Command | Action | Output |
-| :--- | :--- | :--- |
-| `npm run dev` | Starts Vite local dev server with instant HMR | `http://localhost:5173` |
-| `npm run build` | Compiles optimized production bundle | `frontend/dist/` |
-| `npm run preview` | Locally serves and previews production build | `http://localhost:4173` |
-| `npm run lint` | Runs ultra-fast Oxlint linter on source code | Lint check report |
-
-### Running in Development Mode
-```bash
-npm run dev
-```
-Open [http://localhost:5173](http://localhost:5173) in your browser. Any edits made to `.jsx` or `.css` files will hot-reload instantly.
-
-### Building for Production
-```bash
-npm run build
-```
-This bundles the entire application into static assets in `frontend/dist/` (HTML, CSS, JS). The Python backend automatically mounts and serves these files when you access `http://localhost:8000`.
-
----
-
-## Component Architecture
-
-The frontend is designed with zero file duplication, separating presentation components from compiler network utilities:
+## Directory Structure
 
 ```text
-frontend/src/
-├── components/                 # Modular presentation components
-│   ├── Header.jsx              # Topbar navigation, brand logo, section pills, engine status
-│   ├── InputConsole.jsx        # Section 01 (Presets strip & code editor) + Section 02 (CFG accordion)
-│   ├── BnfCard.jsx             # Section 03 (BNF representation, leftmost derivation, rules)
-<<<<<<< HEAD
-│   ├── CstCard.jsx             # Section 04 (Concrete Parse Tree visualizer with syntax derivation chips)
-│   ├── AstCard.jsx             # Section 05 (Syllabus-aligned AST visualizer & redundancy %)
-=======
-│   ├── CstCard.jsx             # Section 04 (Concrete Parse Tree visualizer with 𖣂 badge)
-│   ├── AstCard.jsx             # Section 05 (Syllabus-aligned AST visualizer & operator graph)
->>>>>>> bbbcdce2373e2ce1cbfae9f5de9834276488902d
-│   └── Footer.jsx              # Bottom branding, architecture status & copyright footer
-│
-├── compiler/                   # Pure API client & tree calculation utilities (NO JS parser)
-│   ├── parser.js               # REST connector: parseCode(), validateCode(), checkBackendHealth()
-│   ├── grammar.js              # Formal BNF specifications, presets (EXAMPLES), GRAMMAR_FEATURES
-│   └── treeUtils.js            # countNodes(), getDepth(), countLeaves(), treeToAscii()
-│
-├── TreeView.jsx                # Standalone reusable collapsible interactive tree component
-├── App.jsx                     # Minimal container component (~170 lines) coordinating app state
-├── index.css                   # Custom responsive neo-brutalist CSS tokens & responsive rules
-└── main.jsx                    # React DOM entry point
+frontend/
+├── index.html         # Semantic HTML5 layout (Sections 01 to 05, topbar, and footer)
+├── css/
+│   └── style.css      # Neo-brutalist responsive styling, CSS variables, and dark editor
+├── js/
+│   ├── app.js         # Main UI coordinator and DOM event manager
+│   ├── grammar.js     # Formal C++ BNF production rules and preset examples
+│   ├── treeUtils.js   # Tree calculation algorithms (depth, nodes, leaves, ASCII)
+│   └── api.js         # Asynchronous fetch client for FastAPI /parse and /health
+└── README.md          # Dedicated frontend documentation (this file)
 ```
-
-### Responsibilities of Key Modules:
-- **`App.jsx`**: Acts as a high-level state container. Manages active code, parse results, validation state, and delegates UI rendering to child components.
-- **`InputConsole.jsx`**: Houses Section 01 (Presets with horizontal scroll buttons, line-numbered editor, syntax validation) and Section 02 (2-layer accordion with 8 construct cards and full CFG code view).
-- **`CstCard.jsx` & `AstCard.jsx`**: Display tree derivation badges, metadata pills, and host the interactive `TreeView`.
-- **`TreeView.jsx`**: Recursively renders tree nodes with branch connectors, interactive expansion/collapse (`[-]` / `[+]`), and terminal/non-terminal styles.
-- **`compiler/parser.js`**: Handles communication with the Python FastAPI backend via `fetch` with timeout signals.
 
 ---
 
-## Backend Proxy & API Connectivity
+## Architecture & Execution Flow
 
-During development, `vite.config.js` is pre-configured with a proxy so API requests are routed smoothly without CORS issues:
+The frontend connects directly to the Python FastAPI backend:
 
-```javascript
-// vite.config.js
-export default defineConfig({
-  plugins: [react()],
-  server: {
-    port: 5173,
-    proxy: {
-      '/parse': 'http://127.0.0.1:8000',
-      '/health': 'http://127.0.0.1:8000'
-    }
-  }
-});
-```
+1. **User Interaction**:
+   - The user selects a C++ preset or types a C++ statement in `#source-editor`.
+   - The UI automatically updates statement counts and resets validation state.
+
+2. **Validation**:
+   - Clicking **Validate Syntax** triggers a lightweight check via `fetch('/parse')`.
+   - If the statement conforms to C++ LL(1) rules, validation is confirmed and tree generation is unlocked.
+
+3. **Tree Synthesis & BNF Generation**:
+   - Clicking **Generate BNF, CST & AST** requests complete AST, CST, and BNF derivations from Python.
+   - `app.js` recursively builds:
+     - The **Concrete Parse Tree (CST)** with collapsible nodes (`[-]` / `[+]`).
+     - The **Abstract Syntax Tree (AST)** with pruned delimiters and hoisted operators.
+     - The **BNF Representation** with tabs for Input BNF, Step-by-Step Derivations, and Applied Rules.
+     - Formats human-readable ASCII trees with single-click clipboard copying.
+
+---
+
+## Design System & CSS Tokens
+
+The visual styling is defined in `style.css` using custom CSS variables (Neo-Brutalist design tokens):
+
+- `--primary`: `#908df1` (Purple accent)
+- `--secondary`: `#c4f000` (Lime green accent)
+- `--tertiary`: `#ff70a6` (Pink accent)
+- `--neutral-dark`: `#121212` (Text and border lines)
+- `--editor-bg`: `#181524` (Dark C++ editor window)
+- `--shadow-neo`: `4px 4px 0px #121212` (Neo-brutalist hard drop shadows)
+
+---
+
+## Connecting to Backend
+
+The frontend automatically detects whether it is served by the backend or opened locally:
+- Served via `http://localhost:8000`: uses relative URLs (`/parse`, `/health`).
+- Opened directly: defaults to `http://127.0.0.1:8000`.
