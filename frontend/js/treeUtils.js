@@ -73,28 +73,41 @@ export function treeToAscii(node, prefix = "", isLast = true, isRoot = true) {
   if (!node || typeof node !== "object") return "";
 
   // Get the display label of the node (checks label, type, or value)
-  const label = node.label || node.type || node.value || (typeof node === "string" ? node : "node");
+  let rawLabel = node.label || node.type || node.value || (typeof node === "string" ? node : "node");
+
+  // Normalize label format to match course syllabus specifications:
+  let cleanLabel = rawLabel;
+  if (cleanLabel.startsWith("id(")) {
+    cleanLabel = "identifier(" + cleanLabel.slice(3);
+  } else if (cleanLabel.startsWith("num(")) {
+    cleanLabel = "number(" + cleanLabel.slice(4);
+  } else if (cleanLabel === "<if_statement>") {
+    cleanLabel = "if_stmt";
+  } else if (cleanLabel === "<while_statement>") {
+    cleanLabel = "while_stmt";
+  } else if (cleanLabel.startsWith("<") && cleanLabel.endsWith(">")) {
+    cleanLabel = cleanLabel.slice(1, -1);
+  }
 
   // Get array of children
   const children = Array.isArray(node.children) ? node.children : [];
 
   // Special formatting for the top-level root node:
   if (isRoot) {
-    let result = "└─ " + label + "\n"; // Root always starts with '└─ '
-    const childPrefix = "   ";        // Indent children by 3 spaces
+    let result = cleanLabel + "\n"; // Root displays clean node name without connector
     children.forEach((child, index) => {
       // Recurse for each child; mark isLast as true for the final child
-      result += treeToAscii(child, childPrefix, index === children.length - 1, false);
+      result += treeToAscii(child, "", index === children.length - 1, false);
     });
     return result;
   }
 
-  // Branch connector: use '└─ ' for the last child, '├─ ' for intermediate children
-  const connector = isLast ? "└─ " : "├─ ";
-  let result = prefix + connector + label + "\n";
+  // Branch connector: use '└── ' for the last child, '├── ' for intermediate children
+  const connector = isLast ? "└── " : "├── ";
+  let result = prefix + connector + cleanLabel + "\n";
 
-  // Child prefix: use spaces '   ' if this was the last sibling, or a vertical line '│  ' if more siblings follow
-  const childPrefix = prefix + (isLast ? "   " : "│  ");
+  // Child prefix: use 4 spaces '    ' if last sibling, or vertical bar '│   ' if more siblings follow
+  const childPrefix = prefix + (isLast ? "    " : "│   ");
   children.forEach((child, index) => {
     // Recurse for each child node
     result += treeToAscii(child, childPrefix, index === children.length - 1, false);

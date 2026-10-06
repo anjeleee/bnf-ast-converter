@@ -617,7 +617,7 @@ def parse_code(source: str) -> Dict[str, Any]:
             ast_children.append(else_b["ast"])
 
         return {
-            "cst": {"label": "<statement>", "nodeType": "non-terminal", "children": cst_children},
+            "cst": {"label": "<if_statement>", "nodeType": "non-terminal", "children": cst_children},
             "ast": {"label": "IF", "nodeType": "statement", "children": ast_children}
         }
 
@@ -631,7 +631,7 @@ def parse_code(source: str) -> Dict[str, Any]:
         record_rule("<while_statement>", "'while' '(' <condition> ')' <statement>")
 
         cst = {
-            "label": "<statement>",
+            "label": "<while_statement>",
             "children": [{"label": w_t.value}, {"label": op_t.value}, cond["cst"], {"label": cp_t.value}, body["cst"]]
         }
         ast = {
