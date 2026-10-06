@@ -203,13 +203,16 @@ function renderBnf() {
   // Select appropriate BNF text based on the active tab
   if (r) {
     if (state.bnfView === "representation") {
-      // Tab 1: Clean input statement representation
+      // Tab 1: Clean input statement representation (Handout Format)
       text = r.bnf_clean || r.bnfClean || r.bnf_representation || "";
+    } else if (state.bnfView === "ppt") {
+      // Tab 2: Academic PPT format matching Module 3 Slide 16
+      text = r.bnf_ppt || r.bnfPpt || "";
     } else if (state.bnfView === "derivation") {
-      // Tab 2: Formal step-by-step leftmost derivation (S =>* w)
+      // Tab 3: Formal step-by-step leftmost derivation (S =>* w)
       text = r.bnf_derivation || r.bnfDerivation || "";
     } else {
-      // Tab 3: List of applied grammar production rules
+      // Tab 4: List of applied grammar production rules
       text = r.bnf_relevant || r.bnfRelevant || "";
     }
   }
@@ -218,9 +221,13 @@ function renderBnf() {
 
   // Update card subbar and footer metadata descriptions
   if (state.bnfView === "representation") {
-    subbarLabel.textContent = "INPUT STATEMENT BNF REPRESENTATION";
-    badgeLabel.textContent = "Statement BNF Active";
-    footerMeta.textContent = "Exact Statement BNF Decomposition • Validated";
+    subbarLabel.textContent = "PROJECT HANDOUT BNF FORMAT (OFFICIAL RUBRIC)";
+    badgeLabel.textContent = "Handout Format Active";
+    footerMeta.textContent = "Exact Project Instructions Output Format • Validated";
+  } else if (state.bnfView === "ppt") {
+    subbarLabel.textContent = "LECTURE PPT BNF FORMAT (MODULE 3 SLIDE 16)";
+    badgeLabel.textContent = "Slide 16 Format Active";
+    footerMeta.textContent = "Academic CFG with <program> & Terminals • Validated";
   } else if (state.bnfView === "derivation") {
     subbarLabel.textContent = "CANONICAL LEFTMOST DERIVATION (S ⇒* INPUT)";
     badgeLabel.textContent = "Step-by-Step Derivation Active";

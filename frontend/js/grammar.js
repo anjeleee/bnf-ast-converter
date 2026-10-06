@@ -7,14 +7,24 @@
 // Array of clickable test presets loaded in the input console toolbar
 export const EXAMPLES = [
   {
-    id: "arithmetic",                         // Unique identifier for the arithmetic preset
-    label: "2 + 7",                            // Display text on the preset chip button
-    code: "2 + 7"                             // Source code loaded into the editor
+    id: "handout-if",                         // Official Handout rubric test case
+    label: "if (x == 5) y = x + 1;",          // Display text
+    code: "if (x == 5) y = x + 1;"            // Final Project Handout Input
+  },
+  {
+    id: "ppt-if",                             // Module 3 Slide 16 lecture test case
+    label: "if (x == 5) y = 2 + 7",           // Display text
+    code: "if (x == 5) y = 2 + 7"             // Lecture PPT Slide 16 Input
   },
   {
     id: "assign",                             // Unique identifier for assignment preset
     label: "total = a * (b + 2);",            // Display text
     code: "total = a * (b + 2);"              // Expression with operator precedence
+  },
+  {
+    id: "arithmetic",                         // Unique identifier for arithmetic preset
+    label: "2 + 7",                            // Display text on the preset chip button
+    code: "2 + 7"                             // Source code loaded into the editor
   },
   {
     id: "decl",                               // Unique identifier for declaration preset

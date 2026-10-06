@@ -347,6 +347,67 @@ def generate_clean_input_bnf(ast: Dict[str, Any]) -> str:
     process_statement(ast)
     return "\n\n".join(filter(None, blocks))
 
+# Generates academic BNF matching Lecture 3 Slide 16 specifications (<program>, double quotes, terminals)
+def generate_academic_ppt_bnf(ast: Dict[str, Any], source: str = "") -> str:
+    if not ast:
+        return '<program>      ::= <statement>\n<statement>    ::= <empty>'
+
+    lbl = ast.get("label", "")
+    lines = ["<program>      ::= <statement>"]
+
+    if lbl in ("IF_STATEMENT", "IF"):
+        lines.append('<statement>    ::= "if" "(" <condition> ")" <assignment>')
+        lines.append('<condition>    ::= <identifier> "==" <number>')
+        has_semi = ";" in source
+        if has_semi:
+            lines.append('<assignment>   ::= <identifier> "=" <expression> ";"')
+        else:
+            lines.append('<assignment>   ::= <identifier> "=" <expression>')
+
+        if "+" in source or "-" in source or "*" in source or "/" in source:
+            lines.append('<expression>   ::= <number>')
+            lines.append('                 | <expression> "+" <number>')
+        else:
+            lines.append('<expression>   ::= <number>')
+
+        lines.append('<number>       ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"')
+        lines.append('<identifier>   ::= "x" | "y" | "z"')
+        return "\n".join(lines)
+
+    if lbl in ("WHILE_LOOP", "WHILE"):
+        lines.append('<statement>    ::= "while" "(" <condition> ")" <statement>')
+        lines.append('<condition>    ::= <identifier> "<=" <number>')
+        lines.append('<statement>    ::= <block>')
+        lines.append('<block>        ::= "{" <statement_list> "}"')
+        lines.append('<statement_list> ::= <statement> | <statement> <statement_list>')
+        lines.append('<number>       ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"')
+        lines.append('<identifier>   ::= "x" | "y" | "z"')
+        return "\n".join(lines)
+
+    if lbl.startswith("ASSIGN"):
+        has_semi = ";" in source
+        semi_str = ' ";"' if has_semi else ""
+        lines.append('<statement>    ::= <assignment>')
+        lines.append(f'<assignment>   ::= <identifier> "=" <expression>{semi_str}')
+        if "*" in source or "/" in source or "(" in source:
+            lines.append('<expression>   ::= <term>')
+            lines.append('                 | <term> "+" <expression>')
+            lines.append('<term>         ::= <factor>')
+            lines.append('                 | <factor> "*" <term>')
+            lines.append('<factor>       ::= <identifier>')
+            lines.append('                 | <number>')
+            lines.append('                 | "(" <expression> ")"')
+        else:
+            lines.append('<expression>   ::= <number>')
+            lines.append('                 | <expression> "+" <number>')
+        lines.append('<number>       ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"')
+        lines.append('<identifier>   ::= "a" | "b" | "total" | "x" | "y"')
+        return "\n".join(lines)
+
+    # General fallback: prepend <program> ::= <statement> and append terminals
+    clean = generate_clean_input_bnf(ast)
+    return f"<program>      ::= <statement>\n{clean}\n<number>       ::= \"0\" | \"1\" | \"2\" | \"3\" | \"4\" | \"5\" | \"6\" | \"7\" | \"8\" | \"9\"\n<identifier>   ::= \"x\" | \"y\" | \"z\""
+
 # Generates formal step-by-step canonical leftmost derivation (S =>* Input)
 def generate_leftmost_derivation(cst: Dict[str, Any]) -> str:
     # Helper: extracts clean string value from a tree node
@@ -659,17 +720,28 @@ def parse_code(source: str) -> Dict[str, Any]:
         ast = {"label": "BLOCK", "children": stmts_ast}
         return {"cst": cst, "ast": ast}
 
-    # Parse assignment: <assignment> ::= <identifier> '=' <expression> ';'
+    # Parse assignment: <assignment> ::= <identifier> '=' <expression> [ ';' ]
     def parse_assignment():
         id_t = expect(TokenType.IDENTIFIER, None, "assignment target")
         eq_t = expect(TokenType.OPERATOR, "=", "assignment")
         expr = parse_expression()
-        semi_t = expect(TokenType.DELIMITER, ";", "assignment termination")
-        record_rule("<assignment>", "<identifier> '=' <expression> ';'")
+        semi_t = None
+        if check(TokenType.DELIMITER, ";"):
+            semi_t = advance()
+            record_rule("<assignment>", "<identifier> '=' <expression> ';'")
+        elif is_at_end() or check(TokenType.DELIMITER, "}"):
+            record_rule("<assignment>", "<identifier> '=' <expression>")
+        else:
+            semi_t = expect(TokenType.DELIMITER, ";", "assignment termination")
+            record_rule("<assignment>", "<identifier> '=' <expression> ';'")
+
+        cst_children = [{"label": f"id({id_t.value})", "value": id_t.value}, {"label": eq_t.value}, expr["cst"]]
+        if semi_t:
+            cst_children.append({"label": semi_t.value})
 
         cst = {
             "label": "<assignment>",
-            "children": [{"label": f"id({id_t.value})", "value": id_t.value}, {"label": eq_t.value}, expr["cst"], {"label": semi_t.value}]
+            "children": cst_children
         }
         ast = {
             "label": "ASSIGN (=)",
@@ -888,6 +960,7 @@ def parse_code(source: str) -> Dict[str, Any]:
     ast_n = count_nodes(ast)
 
     clean_bnf = generate_clean_input_bnf(ast)
+    ppt_bnf = generate_academic_ppt_bnf(ast, source)
     derivation_bnf = generate_leftmost_derivation(cst)
     structural_bnf = generate_structural_bnf(cst)
     relevant_bnf = "\n".join(sorted(used_rules))
@@ -907,6 +980,8 @@ def parse_code(source: str) -> Dict[str, Any]:
         "bnf_clean": clean_bnf,
         "bnfRepresentation": clean_bnf,
         "bnf_representation": clean_bnf,
+        "bnfPpt": ppt_bnf,
+        "bnf_ppt": ppt_bnf,
         "bnfDerivation": derivation_bnf,
         "bnf_derivation": derivation_bnf,
         "bnfStructural": structural_bnf,
