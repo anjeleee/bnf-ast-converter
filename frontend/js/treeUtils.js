@@ -75,7 +75,7 @@ export function treeToAscii(node, prefix = "", isLast = true, isRoot = true) {
   // Get the display label of the node (checks label, type, or value)
   let rawLabel = node.label || node.type || node.value || (typeof node === "string" ? node : "node");
 
-  // Normalize label format to match course syllabus specifications:
+  // Normalize label format for standard terminal and non-terminal display:
   let cleanLabel = rawLabel;
   if (cleanLabel.startsWith("id(")) {
     cleanLabel = "identifier(" + cleanLabel.slice(3);

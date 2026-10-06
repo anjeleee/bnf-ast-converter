@@ -47,7 +47,7 @@
 
 BNFgen is an educational software suite engineered for courses in Formal Languages, Automata Theory, and Compiler Construction, focused specifically on the C++ programming language. The primary objective of BNFgen is to provide students and educators with an immediate, visual understanding of the syntactic analysis (parsing) phase of a C++ compiler.
 
-By providing real-time feedback on formal grammar conformance, BNFgen bridges abstract mathematical concepts (Context-Free Grammars, leftmost derivations, predictive parse tables) with practical compiler outputs (Concrete Parse Trees and syllabus-compliant Abstract Syntax Trees).
+By providing real-time feedback on formal grammar conformance, BNFgen bridges abstract mathematical concepts (Context-Free Grammars, leftmost derivations, predictive parse tables) with practical compiler outputs (Concrete Parse Trees and streamlined Abstract Syntax Trees).
 
 ### Core Educational Takeaways:
 1. **Context-Free Grammars (CFG)**: Understanding formal production rules and grammar terminals versus non-terminals.

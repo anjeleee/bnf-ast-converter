@@ -347,7 +347,7 @@ def generate_clean_input_bnf(ast: Dict[str, Any]) -> str:
     process_statement(ast)
     return "\n\n".join(filter(None, blocks))
 
-# Generates academic BNF matching Lecture 3 Slide 16 specifications (<program>, double quotes, terminals)
+# Generates expanded academic BNF with start symbol and terminal character productions
 def generate_academic_ppt_bnf(ast: Dict[str, Any], source: str = "") -> str:
     if not ast:
         return '<program>      ::= <statement>\n<statement>    ::= <empty>'

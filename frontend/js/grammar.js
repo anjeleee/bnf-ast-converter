@@ -7,14 +7,14 @@
 // Array of clickable test presets loaded in the input console toolbar
 export const EXAMPLES = [
   {
-    id: "handout-if",                         // Official Handout rubric test case
+    id: "if-addition",                        // Conditional statement with variable addition
     label: "if (x == 5) y = x + 1;",          // Display text
-    code: "if (x == 5) y = x + 1;"            // Final Project Handout Input
+    code: "if (x == 5) y = x + 1;"            // Source code loaded into the editor
   },
   {
-    id: "ppt-if",                             // Module 3 Slide 16 lecture test case
+    id: "if-arithmetic",                      // Conditional statement with numeric expression
     label: "if (x == 5) y = 2 + 7",           // Display text
-    code: "if (x == 5) y = 2 + 7"             // Lecture PPT Slide 16 Input
+    code: "if (x == 5) y = 2 + 7"             // Source code loaded into the editor
   },
   {
     id: "assign",                             // Unique identifier for assignment preset

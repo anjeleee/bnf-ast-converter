@@ -21,7 +21,7 @@
 - [5. Dual Tree Synthesis Architecture](#5-dual-tree-synthesis-architecture)
   - [Concrete Parse Tree (CST) Representation](#concrete-parse-tree-cst-representation)
   - [Abstract Syntax Tree (AST) Representation](#abstract-syntax-tree-ast-representation)
-  - [Syllabus-Aligned AST Design Principles](#syllabus-aligned-ast-design-principles)
+  - [Formal AST Design Principles](#formal-ast-design-principles)
 - [6. Compiler Optimization and Redundancy Metrics](#6-compiler-optimization-and-redundancy-metrics)
 - [7. Backend REST API Architecture](#7-backend-rest-api-architecture)
 - [8. Frontend Architecture and Reactive State Management](#8-frontend-architecture-and-reactive-state-management)
@@ -280,8 +280,8 @@ The AST distills the program into its semantic essence. Syntactic sugar, punctua
 
 ---
 
-### Syllabus-Aligned AST Design Principles
-To conform to academic compiler design syllabi:
+### Formal AST Design Principles
+To conform to standard compiler design specifications:
 1. **Operator Promotion**: Binary operators are promoted to parent nodes (e.g. `ADD (+)` instead of keeping `+` as an intermediate leaf).
 2. **Elimination of Artificial Nodes**: If-statements do not generate synthetic intermediate `THEN` container nodes; branch statements connect directly beneath `IF`.
 3. **Punctuation Stripping**: Semicolons `;`, grouping parentheses `(`, `)`, and braces `{`, `}` are pruned.
